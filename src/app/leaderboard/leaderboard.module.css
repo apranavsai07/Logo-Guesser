@@ -1,0 +1,102 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 4rem 1.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #fcd34d, #f59e0b, #d97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.3));
+  text-align: center;
+}
+
+.subtitle {
+  color: #a1a1aa;
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.list {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.row:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(4px);
+}
+
+.rank1 {
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.02));
+  border-left: 4px solid #f59e0b;
+}
+
+.rank2 {
+  background: linear-gradient(90deg, rgba(156, 163, 175, 0.15), rgba(156, 163, 175, 0.02));
+  border-left: 4px solid #9ca3af;
+}
+
+.rank3 {
+  background: linear-gradient(90deg, rgba(180, 83, 9, 0.15), rgba(180, 83, 9, 0.02));
+  border-left: 4px solid #b45309;
+}
+
+.rankText {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #71717a;
+  width: 45px;
+}
+
+.rank1 .rankText { color: #f59e0b; }
+.rank2 .rankText { color: #9ca3af; }
+.rank3 .rankText { color: #b45309; }
+
+.nameText {
+  flex-grow: 1;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: white;
+}
+
+.scoreText {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.playAgainBtn {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+}
