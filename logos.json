@@ -1,582 +1,602 @@
 [
   {
     "id": 1,
-    "name": "React",
-    "url": "https://cdn.simpleicons.org/react"
+    "name": "Google",
+    "url": "https://cdn.simpleicons.org/google"
   },
   {
     "id": 2,
-    "name": "Vue.js",
-    "url": "https://cdn.simpleicons.org/vuedotjs"
+    "name": "Apple",
+    "url": "https://cdn.simpleicons.org/apple"
   },
   {
     "id": 3,
-    "name": "Angular",
-    "url": "https://cdn.simpleicons.org/angular"
+    "name": "Microsoft",
+    "url": "https://cdn.simpleicons.org/microsoft"
   },
   {
     "id": 4,
-    "name": "Svelte",
-    "url": "https://cdn.simpleicons.org/svelte"
+    "name": "Amazon",
+    "url": "https://cdn.simpleicons.org/amazon"
   },
   {
     "id": 5,
-    "name": "Next.js",
-    "url": "https://cdn.simpleicons.org/nextdotjs"
+    "name": "Meta",
+    "url": "https://cdn.simpleicons.org/meta"
+  },
+  {
+    "id": 6,
+    "name": "Netflix",
+    "url": "https://cdn.simpleicons.org/netflix"
   },
   {
     "id": 7,
-    "name": "Gatsby",
-    "url": "https://cdn.simpleicons.org/gatsby"
+    "name": "Spotify",
+    "url": "https://cdn.simpleicons.org/spotify"
   },
   {
     "id": 8,
-    "name": "Vite",
-    "url": "https://cdn.simpleicons.org/vite"
+    "name": "X",
+    "url": "https://cdn.simpleicons.org/x"
   },
   {
     "id": 9,
-    "name": "Webpack",
-    "url": "https://cdn.simpleicons.org/webpack"
+    "name": "YouTube",
+    "url": "https://cdn.simpleicons.org/youtube"
   },
   {
     "id": 10,
-    "name": "Babel",
-    "url": "https://cdn.simpleicons.org/babel"
+    "name": "Instagram",
+    "url": "https://cdn.simpleicons.org/instagram"
   },
   {
     "id": 11,
-    "name": "Node.js",
-    "url": "https://cdn.simpleicons.org/nodedotjs"
+    "name": "TikTok",
+    "url": "https://cdn.simpleicons.org/tiktok"
   },
   {
     "id": 12,
-    "name": "Deno",
-    "url": "https://cdn.simpleicons.org/deno"
+    "name": "Reddit",
+    "url": "https://cdn.simpleicons.org/reddit"
   },
   {
     "id": 13,
-    "name": "Bun",
-    "url": "https://cdn.simpleicons.org/bun"
+    "name": "LinkedIn",
+    "url": "https://cdn.simpleicons.org/linkedin"
   },
   {
     "id": 14,
-    "name": "Express",
-    "url": "https://cdn.simpleicons.org/express"
+    "name": "WhatsApp",
+    "url": "https://cdn.simpleicons.org/whatsapp"
   },
   {
     "id": 15,
-    "name": "NestJS",
-    "url": "https://cdn.simpleicons.org/nestjs"
-  },
-  {
-    "id": 16,
-    "name": "Fastify",
-    "url": "https://cdn.simpleicons.org/fastify"
-  },
-  {
-    "id": 17,
-    "name": "Python",
-    "url": "https://cdn.simpleicons.org/python"
-  },
-  {
-    "id": 18,
-    "name": "Django",
-    "url": "https://cdn.simpleicons.org/django"
-  },
-  {
-    "id": 19,
-    "name": "Flask",
-    "url": "https://cdn.simpleicons.org/flask"
-  },
-  {
-    "id": 20,
-    "name": "FastAPI",
-    "url": "https://cdn.simpleicons.org/fastapi"
-  },
-  {
-    "id": 21,
-    "name": "Pandas",
-    "url": "https://cdn.simpleicons.org/pandas"
-  },
-  {
-    "id": 22,
-    "name": "NumPy",
-    "url": "https://cdn.simpleicons.org/numpy"
-  },
-  {
-    "id": 23,
-    "name": "TensorFlow",
-    "url": "https://cdn.simpleicons.org/tensorflow"
-  },
-  {
-    "id": 24,
-    "name": "PyTorch",
-    "url": "https://cdn.simpleicons.org/pytorch"
-  },
-  {
-    "id": 25,
-    "name": "Keras",
-    "url": "https://cdn.simpleicons.org/keras"
-  },
-  {
-    "id": 27,
-    "name": "Spring",
-    "url": "https://cdn.simpleicons.org/spring"
-  },
-  {
-    "id": 28,
-    "name": "Kotlin",
-    "url": "https://cdn.simpleicons.org/kotlin"
-  },
-  {
-    "id": 29,
-    "name": "Scala",
-    "url": "https://cdn.simpleicons.org/scala"
-  },
-  {
-    "id": 31,
-    "name": "C",
-    "url": "https://cdn.simpleicons.org/c"
-  },
-  {
-    "id": 32,
-    "name": "C++",
-    "url": "https://cdn.simpleicons.org/cplusplus"
-  },
-  {
-    "id": 34,
-    "name": ".NET",
-    "url": "https://cdn.simpleicons.org/dotnet"
-  },
-  {
-    "id": 35,
-    "name": "F#",
-    "url": "https://cdn.simpleicons.org/fsharp"
-  },
-  {
-    "id": 36,
-    "name": "Ruby",
-    "url": "https://cdn.simpleicons.org/ruby"
-  },
-  {
-    "id": 38,
-    "name": "PHP",
-    "url": "https://cdn.simpleicons.org/php"
-  },
-  {
-    "id": 39,
-    "name": "Laravel",
-    "url": "https://cdn.simpleicons.org/laravel"
-  },
-  {
-    "id": 40,
-    "name": "Symfony",
-    "url": "https://cdn.simpleicons.org/symfony"
-  },
-  {
-    "id": 41,
-    "name": "Go",
-    "url": "https://cdn.simpleicons.org/go"
-  },
-  {
-    "id": 42,
-    "name": "Rust",
-    "url": "https://cdn.simpleicons.org/rust"
-  },
-  {
-    "id": 43,
-    "name": "Swift",
-    "url": "https://cdn.simpleicons.org/swift"
-  },
-  {
-    "id": 45,
-    "name": "Dart",
-    "url": "https://cdn.simpleicons.org/dart"
-  },
-  {
-    "id": 46,
-    "name": "Flutter",
-    "url": "https://cdn.simpleicons.org/flutter"
-  },
-  {
-    "id": 47,
-    "name": "HTML5",
-    "url": "https://cdn.simpleicons.org/html5"
-  },
-  {
-    "id": 49,
-    "name": "JavaScript",
-    "url": "https://cdn.simpleicons.org/javascript"
-  },
-  {
-    "id": 50,
-    "name": "TypeScript",
-    "url": "https://cdn.simpleicons.org/typescript"
-  },
-  {
-    "id": 51,
-    "name": "WebAssembly",
-    "url": "https://cdn.simpleicons.org/webassembly"
-  },
-  {
-    "id": 52,
-    "name": "PostgreSQL",
-    "url": "https://cdn.simpleicons.org/postgresql"
-  },
-  {
-    "id": 53,
-    "name": "MySQL",
-    "url": "https://cdn.simpleicons.org/mysql"
-  },
-  {
-    "id": 54,
-    "name": "SQLite",
-    "url": "https://cdn.simpleicons.org/sqlite"
-  },
-  {
-    "id": 55,
-    "name": "MongoDB",
-    "url": "https://cdn.simpleicons.org/mongodb"
-  },
-  {
-    "id": 56,
-    "name": "Redis",
-    "url": "https://cdn.simpleicons.org/redis"
-  },
-  {
-    "id": 58,
-    "name": "Neo4j",
-    "url": "https://cdn.simpleicons.org/neo4j"
-  },
-  {
-    "id": 59,
-    "name": "MariaDB",
-    "url": "https://cdn.simpleicons.org/mariadb"
-  },
-  {
-    "id": 60,
-    "name": "Elasticsearch",
-    "url": "https://cdn.simpleicons.org/elasticsearch"
-  },
-  {
-    "id": 61,
-    "name": "Couchbase",
-    "url": "https://cdn.simpleicons.org/couchbase"
-  },
-  {
-    "id": 62,
-    "name": "Git",
-    "url": "https://cdn.simpleicons.org/git"
-  },
-  {
-    "id": 63,
-    "name": "GitHub",
-    "url": "https://cdn.simpleicons.org/github"
-  },
-  {
-    "id": 64,
-    "name": "GitLab",
-    "url": "https://cdn.simpleicons.org/gitlab"
-  },
-  {
-    "id": 65,
-    "name": "Bitbucket",
-    "url": "https://cdn.simpleicons.org/bitbucket"
-  },
-  {
-    "id": 66,
-    "name": "Docker",
-    "url": "https://cdn.simpleicons.org/docker"
-  },
-  {
-    "id": 67,
-    "name": "Kubernetes",
-    "url": "https://cdn.simpleicons.org/kubernetes"
-  },
-  {
-    "id": 68,
-    "name": "Podman",
-    "url": "https://cdn.simpleicons.org/podman"
-  },
-  {
-    "id": 69,
-    "name": "Vagrant",
-    "url": "https://cdn.simpleicons.org/vagrant"
-  },
-  {
-    "id": 70,
-    "name": "Linux",
-    "url": "https://cdn.simpleicons.org/linux"
-  },
-  {
-    "id": 71,
-    "name": "Ubuntu",
-    "url": "https://cdn.simpleicons.org/ubuntu"
-  },
-  {
-    "id": 72,
-    "name": "Debian",
-    "url": "https://cdn.simpleicons.org/debian"
-  },
-  {
-    "id": 73,
-    "name": "Fedora",
-    "url": "https://cdn.simpleicons.org/fedora"
-  },
-  {
-    "id": 74,
-    "name": "Arch Linux",
-    "url": "https://cdn.simpleicons.org/archlinux"
-  },
-  {
-    "id": 75,
-    "name": "CentOS",
-    "url": "https://cdn.simpleicons.org/centos"
-  },
-  {
-    "id": 76,
-    "name": "Alpine Linux",
-    "url": "https://cdn.simpleicons.org/alpinelinux"
-  },
-  {
-    "id": 78,
-    "name": "Google Cloud",
-    "url": "https://cdn.simpleicons.org/googlecloud"
-  },
-  {
-    "id": 80,
-    "name": "DigitalOcean",
-    "url": "https://cdn.simpleicons.org/digitalocean"
-  },
-  {
-    "id": 82,
-    "name": "Vercel",
-    "url": "https://cdn.simpleicons.org/vercel"
-  },
-  {
-    "id": 83,
-    "name": "Netlify",
-    "url": "https://cdn.simpleicons.org/netlify"
-  },
-  {
-    "id": 84,
-    "name": "Cloudflare",
-    "url": "https://cdn.simpleicons.org/cloudflare"
-  },
-  {
-    "id": 85,
-    "name": "Firebase",
-    "url": "https://cdn.simpleicons.org/firebase"
-  },
-  {
-    "id": 86,
-    "name": "Supabase",
-    "url": "https://cdn.simpleicons.org/supabase"
-  },
-  {
-    "id": 87,
-    "name": "Nginx",
-    "url": "https://cdn.simpleicons.org/nginx"
-  },
-  {
-    "id": 88,
-    "name": "Apache",
-    "url": "https://cdn.simpleicons.org/apache"
-  },
-  {
-    "id": 89,
-    "name": "Caddy",
-    "url": "https://cdn.simpleicons.org/caddy"
-  },
-  {
-    "id": 90,
-    "name": "RabbitMQ",
-    "url": "https://cdn.simpleicons.org/rabbitmq"
-  },
-  {
-    "id": 92,
-    "name": "GraphQL",
-    "url": "https://cdn.simpleicons.org/graphql"
-  },
-  {
-    "id": 94,
-    "name": "Prisma",
-    "url": "https://cdn.simpleicons.org/prisma"
-  },
-  {
-    "id": 95,
-    "name": "Sequelize",
-    "url": "https://cdn.simpleicons.org/sequelize"
-  },
-  {
-    "id": 96,
-    "name": "Mongoose",
-    "url": "https://cdn.simpleicons.org/mongoose"
-  },
-  {
-    "id": 97,
-    "name": "Jest",
-    "url": "https://cdn.simpleicons.org/jest"
-  },
-  {
-    "id": 98,
-    "name": "Cypress",
-    "url": "https://cdn.simpleicons.org/cypress"
-  },
-  {
-    "id": 100,
-    "name": "Mocha",
-    "url": "https://cdn.simpleicons.org/mocha"
-  },
-  {
-    "id": 101,
-    "name": "Selenium",
-    "url": "https://cdn.simpleicons.org/selenium"
-  },
-  {
-    "id": 102,
-    "name": "Figma",
-    "url": "https://cdn.simpleicons.org/figma"
-  },
-  {
-    "id": 104,
-    "name": "Sketch",
-    "url": "https://cdn.simpleicons.org/sketch"
-  },
-  {
-    "id": 106,
-    "name": "Framer",
-    "url": "https://cdn.simpleicons.org/framer"
-  },
-  {
-    "id": 107,
-    "name": "Stripe",
-    "url": "https://cdn.simpleicons.org/stripe"
-  },
-  {
-    "id": 108,
-    "name": "PayPal",
-    "url": "https://cdn.simpleicons.org/paypal"
-  },
-  {
-    "id": 109,
-    "name": "Shopify",
-    "url": "https://cdn.simpleicons.org/shopify"
-  },
-  {
-    "id": 110,
-    "name": "WooCommerce",
-    "url": "https://cdn.simpleicons.org/woocommerce"
-  },
-  {
-    "id": 111,
-    "name": "Slack",
-    "url": "https://cdn.simpleicons.org/slack"
-  },
-  {
-    "id": 112,
     "name": "Discord",
     "url": "https://cdn.simpleicons.org/discord"
   },
   {
-    "id": 113,
-    "name": "Zoom",
-    "url": "https://cdn.simpleicons.org/zoom"
+    "id": 16,
+    "name": "Slack",
+    "url": "https://cdn.simpleicons.org/slack"
   },
   {
-    "id": 115,
-    "name": "Trello",
-    "url": "https://cdn.simpleicons.org/trello"
+    "id": 17,
+    "name": "Nvidia",
+    "url": "https://cdn.simpleicons.org/nvidia"
   },
   {
-    "id": 116,
-    "name": "Jira",
-    "url": "https://cdn.simpleicons.org/jira"
+    "id": 18,
+    "name": "Tesla",
+    "url": "https://cdn.simpleicons.org/tesla"
   },
   {
-    "id": 117,
-    "name": "Asana",
-    "url": "https://cdn.simpleicons.org/asana"
+    "id": 19,
+    "name": "Twitch",
+    "url": "https://cdn.simpleicons.org/twitch"
   },
   {
-    "id": 118,
+    "id": 20,
+    "name": "Pinterest",
+    "url": "https://cdn.simpleicons.org/pinterest"
+  },
+  {
+    "id": 21,
+    "name": "OpenAI",
+    "url": "https://cdn.simpleicons.org/openai"
+  },
+  {
+    "id": 22,
+    "name": "Anthropic",
+    "url": "https://cdn.simpleicons.org/anthropic"
+  },
+  {
+    "id": 23,
+    "name": "Claude",
+    "url": "https://cdn.simpleicons.org/claude"
+  },
+  {
+    "id": 24,
+    "name": "Hugging Face",
+    "url": "https://cdn.simpleicons.org/huggingface"
+  },
+  {
+    "id": 25,
+    "name": "Midjourney",
+    "url": "https://cdn.simpleicons.org/midjourney"
+  },
+  {
+    "id": 26,
+    "name": "Vercel",
+    "url": "https://cdn.simpleicons.org/vercel"
+  },
+  {
+    "id": 27,
+    "name": "Supabase",
+    "url": "https://cdn.simpleicons.org/supabase"
+  },
+  {
+    "id": 28,
+    "name": "Lovable",
+    "url": "https://cdn.simpleicons.org/lovable"
+  },
+  {
+    "id": 29,
+    "name": "Figma",
+    "url": "https://cdn.simpleicons.org/figma"
+  },
+  {
+    "id": 30,
     "name": "Notion",
     "url": "https://cdn.simpleicons.org/notion"
   },
   {
-    "id": 119,
-    "name": "Vim",
-    "url": "https://cdn.simpleicons.org/vim"
+    "id": 31,
+    "name": "Stripe",
+    "url": "https://cdn.simpleicons.org/stripe"
   },
   {
-    "id": 120,
-    "name": "Neovim",
-    "url": "https://cdn.simpleicons.org/neovim"
+    "id": 32,
+    "name": "Cursor",
+    "url": "https://cdn.simpleicons.org/cursor"
   },
   {
-    "id": 122,
-    "name": "IntelliJ IDEA",
-    "url": "https://cdn.simpleicons.org/intellijidea"
+    "id": 33,
+    "name": "Perplexity",
+    "url": "https://cdn.simpleicons.org/perplexity"
   },
   {
-    "id": 123,
-    "name": "WebStorm",
-    "url": "https://cdn.simpleicons.org/webstorm"
+    "id": 34,
+    "name": "Raycast",
+    "url": "https://cdn.simpleicons.org/raycast"
   },
   {
-    "id": 124,
-    "name": "PyCharm",
-    "url": "https://cdn.simpleicons.org/pycharm"
+    "id": 35,
+    "name": "Arc",
+    "url": "https://cdn.simpleicons.org/arc"
   },
   {
-    "id": 126,
-    "name": "Android Studio",
-    "url": "https://cdn.simpleicons.org/androidstudio"
+    "id": 36,
+    "name": "Linear",
+    "url": "https://cdn.simpleicons.org/linear"
   },
   {
-    "id": 127,
-    "name": "Haskell",
-    "url": "https://cdn.simpleicons.org/haskell"
+    "id": 37,
+    "name": "React",
+    "url": "https://cdn.simpleicons.org/react"
   },
   {
-    "id": 128,
-    "name": "Elixir",
-    "url": "https://cdn.simpleicons.org/elixir"
+    "id": 38,
+    "name": "Python",
+    "url": "https://cdn.simpleicons.org/python"
   },
   {
-    "id": 129,
-    "name": "Clojure",
-    "url": "https://cdn.simpleicons.org/clojure"
+    "id": 39,
+    "name": "JavaScript",
+    "url": "https://cdn.simpleicons.org/javascript"
   },
   {
-    "id": 130,
-    "name": "OCaml",
-    "url": "https://cdn.simpleicons.org/ocaml"
+    "id": 40,
+    "name": "TypeScript",
+    "url": "https://cdn.simpleicons.org/typescript"
   },
   {
-    "id": 131,
+    "id": 41,
+    "name": "Node.js",
+    "url": "https://cdn.simpleicons.org/nodedotjs"
+  },
+  {
+    "id": 42,
+    "name": "GitHub",
+    "url": "https://cdn.simpleicons.org/github"
+  },
+  {
+    "id": 43,
+    "name": "Docker",
+    "url": "https://cdn.simpleicons.org/docker"
+  },
+  {
+    "id": 44,
+    "name": "AWS",
+    "url": "https://cdn.simpleicons.org/aws"
+  },
+  {
+    "id": 45,
+    "name": "Next.js",
+    "url": "https://cdn.simpleicons.org/nextdotjs"
+  },
+  {
+    "id": 46,
     "name": "Tailwind CSS",
     "url": "https://cdn.simpleicons.org/tailwindcss"
   },
   {
-    "id": 132,
-    "name": "Bootstrap",
-    "url": "https://cdn.simpleicons.org/bootstrap"
+    "id": 47,
+    "name": "Vue.js",
+    "url": "https://cdn.simpleicons.org/vuedotjs"
   },
   {
-    "id": 133,
-    "name": "Sass",
-    "url": "https://cdn.simpleicons.org/sass"
+    "id": 48,
+    "name": "PostgreSQL",
+    "url": "https://cdn.simpleicons.org/postgresql"
   },
   {
-    "id": 134,
-    "name": "Less",
-    "url": "https://cdn.simpleicons.org/less"
+    "id": 49,
+    "name": "MongoDB",
+    "url": "https://cdn.simpleicons.org/mongodb"
   },
   {
-    "id": 135,
-    "name": "Stylus",
-    "url": "https://cdn.simpleicons.org/stylus"
+    "id": 50,
+    "name": "Linux",
+    "url": "https://cdn.simpleicons.org/linux"
+  },
+  {
+    "id": 51,
+    "name": "Ubuntu",
+    "url": "https://cdn.simpleicons.org/ubuntu"
+  },
+  {
+    "id": 52,
+    "name": "Git",
+    "url": "https://cdn.simpleicons.org/git"
+  },
+  {
+    "id": 53,
+    "name": "VS Code",
+    "url": "https://cdn.simpleicons.org/visualstudiocode"
+  },
+  {
+    "id": 54,
+    "name": "Framer",
+    "url": "https://cdn.simpleicons.org/framer"
+  },
+  {
+    "id": 55,
+    "name": "GitLab",
+    "url": "https://cdn.simpleicons.org/gitlab"
+  },
+  {
+    "id": 56,
+    "name": "Stack Overflow",
+    "url": "https://cdn.simpleicons.org/stackoverflow"
+  },
+  {
+    "id": 57,
+    "name": "Snapchat",
+    "url": "https://cdn.simpleicons.org/snapchat"
+  },
+  {
+    "id": 58,
+    "name": "Telegram",
+    "url": "https://cdn.simpleicons.org/telegram"
+  },
+  {
+    "id": 59,
+    "name": "Signal",
+    "url": "https://cdn.simpleicons.org/signal"
+  },
+  {
+    "id": 60,
+    "name": "Zoom",
+    "url": "https://cdn.simpleicons.org/zoom"
+  },
+  {
+    "id": 61,
+    "name": "Skype",
+    "url": "https://cdn.simpleicons.org/skype"
+  },
+  {
+    "id": 62,
+    "name": "Intel",
+    "url": "https://cdn.simpleicons.org/intel"
+  },
+  {
+    "id": 63,
+    "name": "AMD",
+    "url": "https://cdn.simpleicons.org/amd"
+  },
+  {
+    "id": 64,
+    "name": "Samsung",
+    "url": "https://cdn.simpleicons.org/samsung"
+  },
+  {
+    "id": 65,
+    "name": "Sony",
+    "url": "https://cdn.simpleicons.org/sony"
+  },
+  {
+    "id": 66,
+    "name": "IBM",
+    "url": "https://cdn.simpleicons.org/ibm"
+  },
+  {
+    "id": 67,
+    "name": "Oracle",
+    "url": "https://cdn.simpleicons.org/oracle"
+  },
+  {
+    "id": 68,
+    "name": "Salesforce",
+    "url": "https://cdn.simpleicons.org/salesforce"
+  },
+  {
+    "id": 69,
+    "name": "Adobe",
+    "url": "https://cdn.simpleicons.org/adobe"
+  },
+  {
+    "id": 70,
+    "name": "Shopify",
+    "url": "https://cdn.simpleicons.org/shopify"
+  },
+  {
+    "id": 71,
+    "name": "Square",
+    "url": "https://cdn.simpleicons.org/square"
+  },
+  {
+    "id": 72,
+    "name": "PayPal",
+    "url": "https://cdn.simpleicons.org/paypal"
+  },
+  {
+    "id": 73,
+    "name": "Visa",
+    "url": "https://cdn.simpleicons.org/visa"
+  },
+  {
+    "id": 74,
+    "name": "Mastercard",
+    "url": "https://cdn.simpleicons.org/mastercard"
+  },
+  {
+    "id": 75,
+    "name": "Uber",
+    "url": "https://cdn.simpleicons.org/uber"
+  },
+  {
+    "id": 76,
+    "name": "Lyft",
+    "url": "https://cdn.simpleicons.org/lyft"
+  },
+  {
+    "id": 77,
+    "name": "Airbnb",
+    "url": "https://cdn.simpleicons.org/airbnb"
+  },
+  {
+    "id": 78,
+    "name": "Tinder",
+    "url": "https://cdn.simpleicons.org/tinder"
+  },
+  {
+    "id": 79,
+    "name": "Bumble",
+    "url": "https://cdn.simpleicons.org/bumble"
+  },
+  {
+    "id": 80,
+    "name": "Duolingo",
+    "url": "https://cdn.simpleicons.org/duolingo"
+  },
+  {
+    "id": 81,
+    "name": "Canva",
+    "url": "https://cdn.simpleicons.org/canva"
+  },
+  {
+    "id": 82,
+    "name": "Trello",
+    "url": "https://cdn.simpleicons.org/trello"
+  },
+  {
+    "id": 83,
+    "name": "Asana",
+    "url": "https://cdn.simpleicons.org/asana"
+  },
+  {
+    "id": 84,
+    "name": "Jira",
+    "url": "https://cdn.simpleicons.org/jira"
+  },
+  {
+    "id": 85,
+    "name": "Confluence",
+    "url": "https://cdn.simpleicons.org/confluence"
+  },
+  {
+    "id": 86,
+    "name": "Bitbucket",
+    "url": "https://cdn.simpleicons.org/bitbucket"
+  },
+  {
+    "id": 87,
+    "name": "Kubernetes",
+    "url": "https://cdn.simpleicons.org/kubernetes"
+  },
+  {
+    "id": 88,
+    "name": "Firebase",
+    "url": "https://cdn.simpleicons.org/firebase"
+  },
+  {
+    "id": 89,
+    "name": "Heroku",
+    "url": "https://cdn.simpleicons.org/heroku"
+  },
+  {
+    "id": 90,
+    "name": "DigitalOcean",
+    "url": "https://cdn.simpleicons.org/digitalocean"
+  },
+  {
+    "id": 91,
+    "name": "Cloudflare",
+    "url": "https://cdn.simpleicons.org/cloudflare"
+  },
+  {
+    "id": 92,
+    "name": "Netlify",
+    "url": "https://cdn.simpleicons.org/netlify"
+  },
+  {
+    "id": 93,
+    "name": "Svelte",
+    "url": "https://cdn.simpleicons.org/svelte"
+  },
+  {
+    "id": 94,
+    "name": "Angular",
+    "url": "https://cdn.simpleicons.org/angular"
+  },
+  {
+    "id": 95,
+    "name": "Brave",
+    "url": "https://cdn.simpleicons.org/brave"
+  },
+  {
+    "id": 96,
+    "name": "Firefox",
+    "url": "https://cdn.simpleicons.org/firefox"
+  },
+  {
+    "id": 97,
+    "name": "Google Chrome",
+    "url": "https://cdn.simpleicons.org/googlechrome"
+  },
+  {
+    "id": 98,
+    "name": "Safari",
+    "url": "https://cdn.simpleicons.org/safari"
+  },
+  {
+    "id": 99,
+    "name": "Opera",
+    "url": "https://cdn.simpleicons.org/opera"
+  },
+  {
+    "id": 100,
+    "name": "Vivaldi",
+    "url": "https://cdn.simpleicons.org/vivaldi"
+  },
+  {
+    "id": 101,
+    "name": "Android",
+    "url": "https://cdn.simpleicons.org/android"
+  },
+  {
+    "id": 102,
+    "name": "iOS",
+    "url": "https://cdn.simpleicons.org/ios"
+  },
+  {
+    "id": 103,
+    "name": "Windows",
+    "url": "https://cdn.simpleicons.org/windows"
+  },
+  {
+    "id": 104,
+    "name": "macOS",
+    "url": "https://cdn.simpleicons.org/macos"
+  },
+  {
+    "id": 105,
+    "name": "Red Hat",
+    "url": "https://cdn.simpleicons.org/redhat"
+  },
+  {
+    "id": 106,
+    "name": "Debian",
+    "url": "https://cdn.simpleicons.org/debian"
+  },
+  {
+    "id": 107,
+    "name": "Arch Linux",
+    "url": "https://cdn.simpleicons.org/archlinux"
+  },
+  {
+    "id": 108,
+    "name": "PHP",
+    "url": "https://cdn.simpleicons.org/php"
+  },
+  {
+    "id": 109,
+    "name": "Ruby",
+    "url": "https://cdn.simpleicons.org/ruby"
+  },
+  {
+    "id": 110,
+    "name": "Go",
+    "url": "https://cdn.simpleicons.org/go"
+  },
+  {
+    "id": 111,
+    "name": "Rust",
+    "url": "https://cdn.simpleicons.org/rust"
+  },
+  {
+    "id": 112,
+    "name": "Swift",
+    "url": "https://cdn.simpleicons.org/swift"
+  },
+  {
+    "id": 113,
+    "name": "Kotlin",
+    "url": "https://cdn.simpleicons.org/kotlin"
+  },
+  {
+    "id": 114,
+    "name": "Java",
+    "url": "https://cdn.simpleicons.org/java"
+  },
+  {
+    "id": 115,
+    "name": "C++",
+    "url": "https://cdn.simpleicons.org/cplusplus"
+  },
+  {
+    "id": 116,
+    "name": "C#",
+    "url": "https://cdn.simpleicons.org/csharp"
+  },
+  {
+    "id": 117,
+    "name": "MySQL",
+    "url": "https://cdn.simpleicons.org/mysql"
+  },
+  {
+    "id": 118,
+    "name": "Redis",
+    "url": "https://cdn.simpleicons.org/redis"
+  },
+  {
+    "id": 119,
+    "name": "SQLite",
+    "url": "https://cdn.simpleicons.org/sqlite"
+  },
+  {
+    "id": 120,
+    "name": "Prisma",
+    "url": "https://cdn.simpleicons.org/prisma"
   }
 ]

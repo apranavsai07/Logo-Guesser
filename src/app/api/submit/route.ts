@@ -27,10 +27,7 @@ export async function POST(req: Request) {
     let scoreAwarded = 0
 
     if (isCorrect) {
-      // Base score = 10, plus up to 10 extra points based on time remaining (assuming 10s max)
-      const maxTimeMs = 10000
-      const timeBonus = Math.max(0, Math.floor((timeRemainingMs / maxTimeMs) * 10))
-      scoreAwarded = 10 + timeBonus
+      scoreAwarded = 10;
     }
 
     // 3. Update PostgreSQL log

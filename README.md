@@ -64,3 +64,7 @@ Navigate to `http://localhost:3000` to start playing!
 3. Import your GitHub repository.
 4. **CRITICAL:** Before clicking deploy, open the **"Environment Variables"** dropdown and paste in the 4 keys from your `.env.local` file.
 5. Click **Deploy**! Vercel handles all the routing and serverless function packaging automatically.
+
+
+
+i want 120 logos and small change in game paly the user will use the admin computer and will be given 120 seconds of time then the user will be allocated points and user should not see the answer there itself the total score should be presented after the 120 seconds

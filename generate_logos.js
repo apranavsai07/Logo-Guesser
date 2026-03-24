@@ -1,25 +1,22 @@
 const fs = require('fs');
 
 const techCompanies = [
-  "React", "Vue.js", "Angular", "Svelte", "Next.js", "Nuxt.js", "Gatsby", "Vite", "Webpack", "Babel", 
-  "Node.js", "Deno", "Bun", "Express", "NestJS", "Fastify", 
-  "Python", "Django", "Flask", "FastAPI", "Pandas", "NumPy", "TensorFlow", "PyTorch", "Keras",
-  "Java", "Spring", "Kotlin", "Scala", "Groovy", 
-  "C", "C++", "C#", ".NET", "F#", 
-  "Ruby", "Rails", "PHP", "Laravel", "Symfony", "Go", "Rust", "Swift", "Objective-C", "Dart", "Flutter",
-  "HTML5", "CSS3", "JavaScript", "TypeScript", "WebAssembly",
-  "PostgreSQL", "MySQL", "SQLite", "MongoDB", "Redis", "Cassandra", "Neo4j", "MariaDB", "Elasticsearch", "Couchbase",
-  "Git", "GitHub", "GitLab", "Bitbucket", "Docker", "Kubernetes", "Podman", "Vagrant",
-  "Linux", "Ubuntu", "Debian", "Fedora", "Arch Linux", "CentOS", "Alpine Linux",
-  "AWS", "Google Cloud", "Microsoft Azure", "DigitalOcean", "Heroku", "Vercel", "Netlify", "Cloudflare", "Firebase", "Supabase",
-  "Nginx", "Apache", "Caddy", "RabbitMQ", "Kafka",
-  "GraphQL", "Apollo", "Prisma", "Sequelize", "Mongoose",
-  "Jest", "Cypress", "Playwright", "Mocha", "Selenium", 
-  "Figma", "Adobe XD", "Sketch", "InVision", "Framer",
-  "Stripe", "PayPal", "Shopify", "WooCommerce", 
-  "Slack", "Discord", "Zoom", "Microsoft Teams", "Trello", "Jira", "Asana", "Notion",
-  "Vim", "Neovim", "VS Code", "IntelliJ IDEA", "WebStorm", "PyCharm", "Eclipse", "Android Studio",
-  "Haskell", "Elixir", "Clojure", "OCaml", "Tailwind CSS", "Bootstrap", "Sass", "Less", "Stylus", "GraphQL", "Redis"
+  // Big Tech & Consumer
+  "Google", "Apple", "Microsoft", "Amazon", "Meta",
+  "Netflix", "Spotify", "X", "YouTube", "Instagram",
+  "TikTok", "Reddit", "LinkedIn", "WhatsApp", "Discord",
+  "Slack", "Nvidia", "Tesla", "Twitch", "Pinterest",
+
+  // Modern AI & New Tech
+  "OpenAI", "Anthropic", "Claude", "Hugging Face", "Midjourney",
+  "Vercel", "Supabase", "Lovable", "Figma", "Notion", "Stripe",
+  "Cursor", "Perplexity", "Raycast", "Arc", "Linear",
+
+  // Core Developer / Traditional Tech (Keep a few recognizable ones)
+  "React", "Python", "JavaScript", "TypeScript", "Node.js",
+  "GitHub", "Docker", "AWS", "Next.js", "Tailwind CSS",
+  "Vue.js", "PostgreSQL", "MongoDB", "Linux", "Ubuntu",
+  "Git", "VS Code", "Framer", "GitLab", "Stack Overflow"
 ];
 
 // Normalize names into simpleicons slugs

@@ -4,8 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./play.module.css";
 
-const MAX_QUESTIONS = 10;
-const ROUND_TIME_MS = 10000;
+const GAME_TIME_MS = 120000;
 
 export default function Play() {
   const router = useRouter();
@@ -18,7 +17,9 @@ export default function Play() {
   const [questionCount, setQuestionCount] = useState(1);
   const [score, setScore] = useState(0);
   
-  const [timeLeft, setTimeLeft] = useState(ROUND_TIME_MS);
+  const [timeLeft, setTimeLeft] = useState(GAME_TIME_MS);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [seenIds, setSeenIds] = useState<number[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [correctAnswer, setCorrectAnswer] = useState<string | null>(null);
   
@@ -37,23 +38,63 @@ export default function Play() {
   }, [router]);
 
   useEffect(() => {
-    if (question && !selectedOption) {
-      startTimer();
+    // Start global timer when first question loads
+    if (question && !isPlaying && timeLeft > 0) {
+       setIsPlaying(true);
+       lastTickRef.current = Date.now();
     }
-    return () => stopTimer();
-  }, [question, selectedOption]);
+  }, [question, isPlaying, timeLeft]);
 
-  const fetchNextQuestion = async () => {
+  useEffect(() => {
+    if (isPlaying) {
+      lastTickRef.current = Date.now();
+      timerRef.current = setInterval(() => {
+        const now = Date.now();
+        const delta = now - lastTickRef.current;
+        lastTickRef.current = now;
+        
+        setTimeLeft((prev) => Math.max(0, prev - delta));
+      }, 50);
+      
+      return () => {
+        if (timerRef.current) clearInterval(timerRef.current);
+      };
+    }
+  }, [isPlaying]);
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      setIsPlaying(false);
+      router.push("/leaderboard");
+    }
+  }, [timeLeft, router]);
+
+  const fetchNextQuestion = async (newSeenId?: number) => {
     setLoading(true);
     setSelectedOption(null);
     setCorrectAnswer(null);
-    setTimeLeft(ROUND_TIME_MS);
+    
+    let currentSeenIds = [...seenIds];
+    if (newSeenId && !currentSeenIds.includes(newSeenId)) {
+      currentSeenIds.push(newSeenId);
+      setSeenIds(currentSeenIds);
+    }
     
     try {
-      const res = await fetch("/api/question");
+      const res = await fetch("/api/question", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ excludeIds: currentSeenIds })
+      });
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
-      setQuestion(data);
+      
+      if (data.gameOver) {
+        router.push("/leaderboard");
+      } else {
+        setQuestion(data);
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -61,41 +102,18 @@ export default function Play() {
     }
   };
 
-  const startTimer = () => {
-    stopTimer();
-    lastTickRef.current = Date.now();
-    timerRef.current = setInterval(() => {
-      const now = Date.now();
-      const delta = now - lastTickRef.current;
-      lastTickRef.current = now;
-      
-      setTimeLeft((prev) => {
-        const next = Math.max(0, prev - delta);
-        if (next === 0) {
-          stopTimer();
-          handleTimeOut();
-        }
-        return next;
-      });
-    }, 50); // fast tick for smooth visual bar
-  };
-
-  const stopTimer = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
-  };
-
-  const handleTimeOut = async () => {
-    await submitAnswer("[TIMEOUT]", 0);
-  };
-
   const handleOptionClick = async (option: string) => {
-    if (selectedOption || !question || !userId) return; // Prevent double clicks
-    stopTimer();
-    await submitAnswer(option, timeLeft);
+    if (selectedOption || !question || !userId || !isPlaying) return; // Prevent double clicks
+    await submitAnswer(option);
   };
 
-  const submitAnswer = async (option: string, timeRemaining: number) => {
-    setSelectedOption(option);
+  const submitAnswer = async (option: string) => {
+    // Capture the current question since the state will be cleared immediately
+    const currentQuestionId = question.questionId;
+    
+    // Instantly advance to the next question to save time
+    setQuestionCount(prev => prev + 1);
+    fetchNextQuestion(currentQuestionId);
     
     try {
       const res = await fetch("/api/submit", {
@@ -103,28 +121,17 @@ export default function Play() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId,
-          questionId: question.questionId,
+          questionId: currentQuestionId,
           selectedOption: option,
-          timeRemainingMs: timeRemaining,
+          timeRemainingMs: 0,
         })
       });
       
       const data = await res.json();
-      setCorrectAnswer(data.correctAnswer);
       
       if (data.correct) {
         setScore(prev => prev + data.scoreAwarded);
       }
-
-      // Wait 1.5 seconds to show the CSS feedback, then proceed
-      setTimeout(() => {
-        if (questionCount >= MAX_QUESTIONS) {
-          router.push("/leaderboard");
-        } else {
-          setQuestionCount(prev => prev + 1);
-          fetchNextQuestion();
-        }
-      }, 1500);
       
     } catch (err) {
       console.error("Submit error", err);
@@ -140,14 +147,14 @@ export default function Play() {
   }
 
   // Calculate timer bar width percentage
-  const timerPercentage = Math.max(0, (timeLeft / ROUND_TIME_MS) * 100);
+  const timerPercentage = Math.max(0, (timeLeft / GAME_TIME_MS) * 100);
   const isDanger = timerPercentage < 25;
 
   return (
     <main className={styles.container}>
       <div className={styles.header}>
         <div className={styles.questionCount}>
-          Logo {questionCount} <span style={{ opacity: 0.5 }}>/ {MAX_QUESTIONS}</span>
+          Logo {questionCount}
         </div>
         <div className={styles.score}>Score: {score}</div>
       </div>
