@@ -56,8 +56,8 @@ export async function POST(req: Request) {
         .single()
         
       if (user) {
-        // ZINCRBY increments the score for the member (user's name)
-        await redis.zincrby('leaderboard', scoreAwarded, user.name)
+        // ZINCRBY increments the score for the member (userId) instead of name
+        await redis.zincrby('leaderboard', scoreAwarded, userId)
       }
     }
 

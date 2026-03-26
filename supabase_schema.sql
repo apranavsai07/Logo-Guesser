@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS public.users (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
   college_id VARCHAR(100) UNIQUE NOT NULL,
   name VARCHAR(255) NOT NULL,
+  play_count INTEGER DEFAULT 0,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 

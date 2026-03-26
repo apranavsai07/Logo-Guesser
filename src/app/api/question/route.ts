@@ -12,7 +12,7 @@ const CACHE_TTL_MS = 1000 * 60 * 5; // 5 minutes
 
 export async function POST(req: Request) {
   try {
-    const { excludeIds = [] } = await req.json().catch(() => ({}));
+    const { excludeIds = [], userId } = await req.json().catch(() => ({}));
     const now = Date.now();
     
     // Refresh cache if empty or expired
@@ -40,6 +40,14 @@ export async function POST(req: Request) {
         }
       });
       LAST_FETCH_TIME = now;
+    }
+
+    if (excludeIds.length === 0 && userId) {
+      // It's a new game session. Increment play_count.
+      const { data: user } = await supabase.from('users').select('play_count').eq('id', userId).single()
+      if (user) {
+        await supabase.from('users').update({ play_count: (user.play_count || 0) + 1 }).eq('id', userId)
+      }
     }
     
     // Filter available correctly

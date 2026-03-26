@@ -17,6 +17,7 @@
   letter-spacing: 2px;
   background: linear-gradient(135deg, #fcd34d, #f59e0b, #d97706);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.3));
   text-align: center;
@@ -99,4 +100,20 @@
   margin-top: 4rem;
   display: flex;
   justify-content: center;
+}
+
+.rollNumber {
+  display: block;
+  font-size: 0.85rem;
+  color: #a1a1aa;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.currentUserRow {
+  border-color: var(--primary);
+  box-shadow: 0 0 15px rgba(0, 255, 128, 0.2); 
+  transform: scale(1.02);
+  z-index: 10;
+  position: relative;
 }

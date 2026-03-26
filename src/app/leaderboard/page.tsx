@@ -5,21 +5,27 @@ import Link from "next/link";
 import styles from "./leaderboard.module.css";
 
 interface ScoreEntry {
+  id?: string;
   name: string;
+  collegeId?: string;
   score: number;
+  rank?: number;
 }
 
 export default function Leaderboard() {
   const [scores, setScores] = useState<ScoreEntry[]>([]);
+  const [userSpecific, setUserSpecific] = useState<ScoreEntry | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchLeaderboard = async () => {
     try {
+      const storedId = localStorage.getItem("logo_guesser_user_id") || "";
       // Prevent aggressive caching during dev
-      const res = await fetch(`/api/leaderboard?t=${Date.now()}`);
+      const res = await fetch(`/api/leaderboard?t=${Date.now()}${storedId ? `&userId=${storedId}` : ''}`);
       if (res.ok) {
         const data = await res.json();
         setScores(data.leaderboard);
+        if (data.userSpecific) setUserSpecific(data.userSpecific);
       }
     } catch (err) {
       console.error(err);
@@ -52,15 +58,35 @@ export default function Leaderboard() {
             else if (idx === 1) rankClass = styles.rank2;
             else if (idx === 2) rankClass = styles.rank3;
 
+            const isMe = userSpecific?.id && entry.id === userSpecific?.id;
+            const rowClass = isMe ? `${styles.row} ${rankClass} ${styles.currentUserRow}`.trim() : `${styles.row} ${rankClass}`.trim();
+
             return (
-              <li key={idx} className={`${styles.row} ${rankClass}`}>
+              <li key={idx} className={rowClass}>
                 <div className={styles.rankText}>#{idx + 1}</div>
-                <div className={styles.nameText}>{entry.name}</div>
+                <div className={styles.nameText}>
+                  {entry.name}
+                  {entry.collegeId && <span className={styles.rollNumber}>{entry.collegeId}</span>}
+                </div>
                 <div className={styles.scoreText}>{entry.score}</div>
               </li>
             );
           })}
         </ul>
+      )}
+
+      {userSpecific && userSpecific.rank && userSpecific.rank > 50 && (
+        <div style={{ width: '100%', marginTop: '2rem' }}>
+          <p style={{ color: '#a1a1aa', textAlign: 'center', marginBottom: '0.5rem' }}>Your Rank</p>
+          <div className={`${styles.row} ${styles.currentUserRow}`}>
+            <div className={styles.rankText}>#{userSpecific.rank}</div>
+            <div className={styles.nameText}>
+              {userSpecific.name}
+              {userSpecific.collegeId && <span className={styles.rollNumber}>{userSpecific.collegeId}</span>}
+            </div>
+            <div className={styles.scoreText}>{userSpecific.score}</div>
+          </div>
+        </div>
       )}
 
       {scores.length === 0 && !loading && (

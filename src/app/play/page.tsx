@@ -85,7 +85,10 @@ export default function Play() {
       const res = await fetch("/api/question", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ excludeIds: currentSeenIds })
+        body: JSON.stringify({ 
+          excludeIds: currentSeenIds,
+          userId: userId || localStorage.getItem("logo_guesser_user_id") 
+        })
       });
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();

@@ -133,7 +133,9 @@ export default function Home() {
               id="collegeId"
               type="text"
               required
-              placeholder="e.g. 21BCE102"
+              pattern="^\d{4}-\d{2}-\d{3}-\d{3}$"
+              title="Format must be exactly: xxxx-xx-xxx-xxx (e.g. 1608-23-733-209)"
+              placeholder="e.g. 1608-23-733-209"
               value={collegeId}
               onChange={(e) => setCollegeId(e.target.value)}
               disabled={loading}
