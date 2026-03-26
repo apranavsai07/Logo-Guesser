@@ -126,7 +126,7 @@
 .introLogo {
   width: clamp(100px, 20vw, 150px);
   height: clamp(100px, 20vw, 150px);
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   object-fit: contain;
   filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.3));
 }

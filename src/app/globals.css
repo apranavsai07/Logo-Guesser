@@ -91,4 +91,8 @@ a {
 
 .global-fade-in {
   animation: fadeInAnim 1.5s ease-in-out forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
