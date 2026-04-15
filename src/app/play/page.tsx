@@ -152,6 +152,10 @@ export default function Play() {
   // Calculate timer bar width percentage
   const timerPercentage = Math.max(0, (timeLeft / GAME_TIME_MS) * 100);
   const isDanger = timerPercentage < 25;
+  
+  const minutes = Math.floor(timeLeft / 60000);
+  const seconds = Math.floor((timeLeft % 60000) / 1000);
+  const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
   return (
     <main className={styles.container}>
@@ -162,11 +166,8 @@ export default function Play() {
         <div className={styles.score}>Score: {score}</div>
       </div>
 
-      <div className={styles.timerBarContainer}>
-        <div 
-          className={`${styles.timerBar} ${isDanger ? styles.timerDanger : ""}`} 
-          style={{ width: `${timerPercentage}%` }}
-        />
+      <div className={`${styles.timerBadge} ${isDanger ? styles.timerDanger : ""}`}>
+        {formattedTime}
       </div>
 
       <div className={styles.logoContainer}>
