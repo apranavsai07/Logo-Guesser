@@ -2,48 +2,54 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import styles from "./play.module.css";
 
-const GAME_TIME_MS = 120000;
+const GAME_TIME_MS = 60000;
 
 export default function Play() {
   const router = useRouter();
   
   const [userId, setUserId] = useState<string | null>(null);
+  const [userName, setUserName] = useState("");
   
   const [question, setQuestion] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(true);
   
   const [questionCount, setQuestionCount] = useState(1);
+  const [totalAttempted, setTotalAttempted] = useState(0);
+  const [correctCount, setCorrectCount] = useState(0);
   const [score, setScore] = useState(0);
   
   const [timeLeft, setTimeLeft] = useState(GAME_TIME_MS);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
   const [seenIds, setSeenIds] = useState<number[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [correctAnswer, setCorrectAnswer] = useState<string | null>(null);
+  const [transitioning, setTransitioning] = useState(false);
   
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const lastTickRef = useRef<number>(0);
+  const seenIdsRef = useRef<number[]>([]);
 
   useEffect(() => {
-    // Authenticate
     const storedId = localStorage.getItem("logo_guesser_user_id");
+    const storedName = localStorage.getItem("logo_guesser_name") || "";
     if (!storedId) {
       router.push("/");
     } else {
       setUserId(storedId);
-      fetchNextQuestion();
+      setUserName(storedName);
+      fetchNextQuestion([], storedId);
     }
   }, [router]);
 
   useEffect(() => {
-    // Start global timer when first question loads
-    if (question && !isPlaying && timeLeft > 0) {
+    if (question && !isPlaying && timeLeft > 0 && !gameOver) {
        setIsPlaying(true);
        lastTickRef.current = Date.now();
     }
-  }, [question, isPlaying, timeLeft]);
+  }, [question, isPlaying, timeLeft, gameOver]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -52,7 +58,6 @@ export default function Play() {
         const now = Date.now();
         const delta = now - lastTickRef.current;
         lastTickRef.current = now;
-        
         setTimeLeft((prev) => Math.max(0, prev - delta));
       }, 50);
       
@@ -63,23 +68,15 @@ export default function Play() {
   }, [isPlaying]);
 
   useEffect(() => {
-    if (timeLeft === 0) {
+    if (timeLeft === 0 && !gameOver) {
       if (timerRef.current) clearInterval(timerRef.current);
       setIsPlaying(false);
-      router.push("/leaderboard");
+      setGameOver(true);
     }
-  }, [timeLeft, router]);
+  }, [timeLeft, gameOver]);
 
-  const fetchNextQuestion = async (newSeenId?: number) => {
-    setLoading(true);
-    setSelectedOption(null);
-    setCorrectAnswer(null);
-    
-    let currentSeenIds = [...seenIds];
-    if (newSeenId && !currentSeenIds.includes(newSeenId)) {
-      currentSeenIds.push(newSeenId);
-      setSeenIds(currentSeenIds);
-    }
+  const fetchNextQuestion = async (currentSeenIds: number[], uid?: string) => {
+    setTransitioning(true);
     
     try {
       const res = await fetch("/api/question", {
@@ -87,61 +84,125 @@ export default function Play() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           excludeIds: currentSeenIds,
-          userId: userId || localStorage.getItem("logo_guesser_user_id") 
+          userId: uid || userId
         })
       });
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
       
       if (data.gameOver) {
-        router.push("/leaderboard");
+        if (timerRef.current) clearInterval(timerRef.current);
+        setIsPlaying(false);
+        setGameOver(true);
       } else {
         setQuestion(data);
       }
     } catch (err) {
       console.error(err);
     } finally {
-      setLoading(false);
+      setInitialLoading(false);
+      setTransitioning(false);
     }
   };
 
   const handleOptionClick = async (option: string) => {
-    if (selectedOption || !question || !userId || !isPlaying) return; // Prevent double clicks
-    await submitAnswer(option);
-  };
-
-  const submitAnswer = async (option: string) => {
-    // Capture the current question since the state will be cleared immediately
+    if (selectedOption || !question || !userId || !isPlaying) return;
+    
+    setSelectedOption(option);
     const currentQuestionId = question.questionId;
-    
-    // Instantly advance to the next question to save time
+    const newSeenIds = [...seenIdsRef.current, currentQuestionId];
+    seenIdsRef.current = newSeenIds;
+    setSeenIds(newSeenIds);
     setQuestionCount(prev => prev + 1);
-    fetchNextQuestion(currentQuestionId);
+    setTotalAttempted(prev => prev + 1);
     
-    try {
-      const res = await fetch("/api/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId,
-          questionId: currentQuestionId,
-          selectedOption: option,
-          timeRemainingMs: 0,
-        })
-      });
-      
-      const data = await res.json();
-      
-      if (data.correct) {
-        setScore(prev => prev + data.scoreAwarded);
-      }
-      
-    } catch (err) {
+    const submitPromise = fetch("/api/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId,
+        questionId: currentQuestionId,
+        selectedOption: option,
+        timeRemainingMs: 0,
+      })
+    }).then(res => res.json()).catch(err => {
       console.error("Submit error", err);
+      return null;
+    });
+    
+    const questionPromise = fetch("/api/question", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        excludeIds: newSeenIds,
+        userId
+      })
+    }).then(res => res.json()).catch(err => {
+      console.error("Fetch error", err);
+      return null;
+    });
+    
+    setTransitioning(true);
+    setSelectedOption(null);
+    
+    const [submitData, questionData] = await Promise.all([submitPromise, questionPromise]);
+    
+    if (submitData && submitData.correct) {
+      setScore(prev => prev + submitData.scoreAwarded);
+      setCorrectCount(prev => prev + 1);
     }
+    
+    if (questionData) {
+      if (questionData.gameOver) {
+        if (timerRef.current) clearInterval(timerRef.current);
+        setIsPlaying(false);
+        setGameOver(true);
+      } else {
+        setQuestion(questionData);
+      }
+    }
+    
+    setTransitioning(false);
   };
 
-  if (loading && !question) {
+  if (gameOver) {
+    return (
+      <main className={styles.container} style={{ justifyContent: "center" }}>
+        <div className={styles.resultCard}>
+          <div className={styles.resultEmoji}>🎮</div>
+          <h1 className={styles.resultTitle}>Time&apos;s Up!</h1>
+          <p className={styles.resultName}>{userName}</p>
+          
+          <div className={styles.resultStats}>
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>{score}</span>
+              <span className={styles.statLabel}>Score</span>
+            </div>
+            <div className={styles.statDivider} />
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>{correctCount}</span>
+              <span className={styles.statLabel}>Correct</span>
+            </div>
+            <div className={styles.statDivider} />
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>{totalAttempted}</span>
+              <span className={styles.statLabel}>Attempted</span>
+            </div>
+          </div>
+
+          <p className={styles.resultAccuracy}>
+            Accuracy: {totalAttempted > 0 ? Math.round((correctCount / totalAttempted) * 100) : 0}%
+          </p>
+          
+          <div className={styles.resultActions}>
+            <Link href="/" className="neon-button">Play Again</Link>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (initialLoading && !question) {
     return (
       <main className={styles.container} style={{ justifyContent: "center" }}>
         <div className={styles.loadingText}>Loading next logo...</div>
@@ -149,7 +210,6 @@ export default function Play() {
     );
   }
 
-  // Calculate timer bar width percentage
   const timerPercentage = Math.max(0, (timeLeft / GAME_TIME_MS) * 100);
   const isDanger = timerPercentage < 25;
   
@@ -184,25 +244,12 @@ export default function Play() {
 
       <div className={styles.optionsGrid}>
         {question?.options.map((opt: string) => {
-          
-          let stateClass = "";
-          if (selectedOption && correctAnswer) {
-            if (opt === correctAnswer) {
-              stateClass = styles.correct;
-            } else if (opt === selectedOption && opt !== correctAnswer) {
-              stateClass = styles.incorrect;
-            }
-          } else if (selectedOption === opt && !correctAnswer) {
-            // Selected but waiting for API response to validate
-            stateClass = "";
-          }
-
           return (
             <button
               key={opt}
-              className={`${styles.optionCard} ${stateClass}`}
+              className={`${styles.optionCard}`}
               onClick={() => handleOptionClick(opt)}
-              disabled={!!selectedOption}
+              disabled={transitioning}
             >
               {opt}
             </button>

@@ -167,3 +167,84 @@
   50% { opacity: 1; text-shadow: 0 0 15px var(--primary-glow); }
   100% { opacity: 0.5; }
 }
+
+.resultCard {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+}
+
+.resultEmoji {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.resultTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+  background: linear-gradient(135deg, #fcd34d, #f59e0b, #d97706);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.resultName {
+  font-size: 1.2rem;
+  color: #a1a1aa;
+  margin-bottom: 2rem;
+}
+
+.resultStats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statValue {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-shadow: 0 0 15px var(--primary-glow);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 0.85rem;
+  color: #71717a;
+  margin-top: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.statDivider {
+  width: 1px;
+  height: 40px;
+  background: var(--glass-border);
+}
+
+.resultAccuracy {
+  font-size: 1rem;
+  color: #a1a1aa;
+  margin-bottom: 2rem;
+}
+
+.resultActions {
+  display: flex;
+  justify-content: center;
+}
