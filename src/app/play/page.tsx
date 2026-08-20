@@ -39,8 +39,6 @@ export default function Play() {
   const [timeLeft, setTimeLeft] = useState(GAME_TIME_MS);
   const [isPlaying, setIsPlaying] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [answerResult, setAnswerResult] = useState<{ isCorrect: boolean; correctAnswer?: string } | null>(null);
   const [attemptHistory, setAttemptHistory] = useState<AttemptHistoryItem[]>([]);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -148,15 +146,14 @@ export default function Play() {
     }
   }, [timeLeft, gameOver]);
 
-  // Handle Option Click with Instant Pre-loaded Transition
-  const handleOptionClick = async (option: string) => {
-    if (selectedOption || !question || !userId || !isPlaying) return;
+  // Handle Option Click: Instant transition without showing correct answers during play
+  const handleOptionClick = (option: string) => {
+    if (!question || !userId || !isPlaying) return;
 
     const currentQ = question;
-    setSelectedOption(option);
 
-    // Fire submit request asynchronously
-    const submitPromise = fetch("/api/submit", {
+    // Asynchronously submit answer to API (non-blocking)
+    fetch("/api/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -167,53 +164,40 @@ export default function Play() {
       }),
     })
       .then((res) => res.json())
-      .catch((err) => {
-        console.error("Submit error", err);
-        return null;
-      });
-
-    // Await submit result for instant visual answer confirmation
-    const submitData = await submitPromise;
-    const isCorrect = submitData?.correct || false;
-    const correctAnswer = submitData?.correctAnswer || option;
-
-    setAnswerResult({ isCorrect, correctAnswer });
-
-    if (isCorrect) {
-      setScore((prev) => prev + (submitData?.scoreAwarded || 10));
-      setCorrectCount((prev) => prev + 1);
-    }
-
-    setAttemptHistory((prev) => [
-      ...prev,
-      {
-        questionId: currentQ.questionId,
-        imageUrl: currentQ.imageUrl,
-        selectedOption: option,
-        isCorrect,
-        correctAnswer,
-      },
-    ]);
+      .then((submitData) => {
+        if (submitData) {
+          const isCorrect = submitData.correct || false;
+          const scoreAwarded = submitData.scoreAwarded || 0;
+          if (isCorrect) {
+            setScore((prev) => prev + scoreAwarded);
+            setCorrectCount((prev) => prev + 1);
+          }
+          setAttemptHistory((prev) => [
+            ...prev,
+            {
+              questionId: currentQ.questionId,
+              imageUrl: currentQ.imageUrl,
+              selectedOption: option,
+              isCorrect,
+              correctAnswer: submitData.correctAnswer || option,
+            },
+          ]);
+        }
+      })
+      .catch((err) => console.error("Submit error", err));
 
     setTotalAttempted((prev) => prev + 1);
 
-    // Brief 350ms delay for feedback animation before instant transition
-    setTimeout(async () => {
-      setSelectedOption(null);
-      setAnswerResult(null);
-
-      // If buffer question is ready, swap instantly!
-      if (nextQuestion) {
-        setQuestion(nextQuestion);
-        setNextQuestion(null);
-        const updatedSeen = [...seenIdsRef.current, nextQuestion.questionId];
-        seenIdsRef.current = updatedSeen;
-        setQuestionCount((prev) => prev + 1);
-
-        // Refill buffer in background
-        fillBufferQuestion(updatedSeen, userId);
-      } else {
-        // If buffer was not ready, fetch next question directly
+    // Instant zero-delay transition to next preloaded question
+    if (nextQuestion) {
+      setQuestion(nextQuestion);
+      setNextQuestion(null);
+      const updatedSeen = [...seenIdsRef.current, nextQuestion.questionId];
+      seenIdsRef.current = updatedSeen;
+      setQuestionCount((prev) => prev + 1);
+      fillBufferQuestion(updatedSeen, userId);
+    } else {
+      (async () => {
         const newSeen = [...seenIdsRef.current, currentQ.questionId];
         const freshQ = await fetchQuestionData(newSeen, userId);
         if (freshQ === "GAMEOVER" || !freshQ) {
@@ -226,8 +210,8 @@ export default function Play() {
           setQuestionCount((prev) => prev + 1);
           fillBufferQuestion(seenIdsRef.current, userId);
         }
-      }
-    }, 350);
+      })();
+    }
   };
 
   if (gameOver) {
@@ -245,7 +229,7 @@ export default function Play() {
           <div className={styles.resultStats}>
             <div className={styles.statItem}>
               <span className={styles.statValue}>{score}</span>
-              <span className={styles.statLabel}>Score</span>
+              <span className={styles.statLabel}>Points</span>
             </div>
             <div className={styles.statDivider} />
             <div className={styles.statItem}>
@@ -268,7 +252,7 @@ export default function Play() {
           {attemptHistory.length > 0 && (
             <>
               <h3 className={styles.sectionHeading}>
-                <span>📝</span> Individual Question Breakdown
+                <span>📝</span> Individual Score & Answer Breakdown
               </h3>
               <div className={styles.breakdownContainer}>
                 {attemptHistory.map((item, idx) => (
@@ -280,7 +264,7 @@ export default function Play() {
                         Logo #{idx + 1}: {item.correctAnswer || item.selectedOption}
                       </div>
                       <div className={styles.breakdownAnswer}>
-                        Your Answer: {item.selectedOption}
+                        Your Choice: {item.selectedOption}
                       </div>
                     </div>
                     <span className={item.isCorrect ? styles.badgeCorrect : styles.badgeIncorrect}>
@@ -324,7 +308,7 @@ export default function Play() {
     <main className={styles.container}>
       <div className={styles.header}>
         <div className={styles.questionCount}>Logo {questionCount}</div>
-        <div className={styles.score}>Score: {score}</div>
+        <div className={styles.score} style={{ opacity: 0.7 }}>Mode: Blitz</div>
       </div>
 
       <div className={`${styles.timerBadge} ${isDanger ? styles.timerDanger : ""}`}>
@@ -345,19 +329,11 @@ export default function Play() {
 
       <div className={styles.optionsGrid}>
         {question?.options.map((opt: string) => {
-          let extraClass = "";
-          if (selectedOption === opt) {
-            extraClass = answerResult?.isCorrect ? styles.correct : styles.incorrect;
-          } else if (selectedOption && answerResult && !answerResult.isCorrect && opt === answerResult.correctAnswer) {
-            extraClass = styles.correct;
-          }
-
           return (
             <button
               key={opt}
-              className={`${styles.optionCard} ${extraClass}`.trim()}
+              className={styles.optionCard}
               onClick={() => handleOptionClick(opt)}
-              disabled={!!selectedOption}
             >
               {opt}
             </button>
@@ -367,4 +343,5 @@ export default function Play() {
     </main>
   );
 }
+
 
