@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import os from 'os';
 
 export interface ParticipantRecord {
   id: string;
@@ -13,13 +14,27 @@ export interface ParticipantRecord {
 
 let dbInstance: any = null;
 
+function getDbPath(): string {
+  // Use /tmp on Vercel / Linux serverless functions, or local cwd on Windows
+  if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+    return path.join(os.tmpdir(), 'leaderboard.sqlite');
+  }
+  return path.join(process.cwd(), 'leaderboard.sqlite');
+}
+
+function getJsonPath(): string {
+  if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+    return path.join(os.tmpdir(), 'leaderboard_store.json');
+  }
+  return path.join(process.cwd(), 'leaderboard_store.json');
+}
+
 function getSqliteDatabase() {
   if (dbInstance) return dbInstance;
 
   try {
-    // Attempt using better-sqlite3
     const Database = require('better-sqlite3');
-    const dbPath = path.join(process.cwd(), 'leaderboard.sqlite');
+    const dbPath = getDbPath();
     const db = new Database(dbPath);
     
     db.exec(`
@@ -41,6 +56,7 @@ function getSqliteDatabase() {
           INSERT INTO challenge_results (id, user_id, name, total_score, total_correct, total_attempted, created_at)
           VALUES (?, ?, ?, ?, ?, ?, ?)
           ON CONFLICT(id) DO UPDATE SET
+            name = excluded.name,
             total_score = MAX(total_score, excluded.total_score),
             total_correct = MAX(total_correct, excluded.total_correct),
             total_attempted = MAX(total_attempted, excluded.total_attempted);
@@ -74,11 +90,9 @@ function getSqliteDatabase() {
     };
     return dbInstance;
   } catch (err) {
-    console.warn('SQLite native module unavailable, initializing file-backed fallback storage for Vercel edge/serverless compatibility:', err);
+    console.warn('SQLite native module warning, using JSON file fallback:', err);
     
-    // File-backed fallback for serverless environments where binary bindings are restricted
-    const jsonPath = path.join(process.cwd(), 'leaderboard_store.json');
-    
+    const jsonPath = getJsonPath();
     const readStore = (): ParticipantRecord[] => {
       try {
         if (fs.existsSync(jsonPath)) {
