@@ -33,7 +33,7 @@ export async function GET(req: Request) {
 
     let usersData: any[] = []
     if (topUserIds.length > 0) {
-      const { data } = await supabase.from('users').select('id, name, college_id').in('id', topUserIds)
+      const { data } = await supabase.from('users').select('id, name').in('id', topUserIds)
       if (data) usersData = data
     }
 
@@ -43,7 +43,7 @@ export async function GET(req: Request) {
       const score = Number(result[i + 1])
       const u = usersData.find(x => x.id === id)
       if (u) {
-        leaderboard.push({ id, name: u.name, collegeId: u.college_id, score })
+        leaderboard.push({ id, name: u.name, score })
       }
     }
     
@@ -54,7 +54,6 @@ export async function GET(req: Request) {
          userSpecific = {
            id: userIdSearch,
            name: u.name,
-           collegeId: u.college_id,
            score: Number(userScoreStr),
            rank: userRank + 1 // 1-indexed
          }

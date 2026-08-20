@@ -13,7 +13,6 @@ export default function Home() {
   const [step, setStep] = useState(0);
 
   const [name, setName] = useState("");
-  const [collegeId, setCollegeId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -37,7 +36,7 @@ export default function Home() {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, collegeId }),
+        body: JSON.stringify({ name }),
       });
 
       const data = await res.json();
@@ -123,21 +122,6 @@ export default function Home() {
               placeholder="John Doe"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              disabled={loading}
-            />
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label htmlFor="collegeId">College ID / Registration No.</label>
-            <input
-              id="collegeId"
-              type="text"
-              required
-              pattern="^\d{4}-\d{2}-\d{3}-\d{3}$"
-              title="Format must be exactly: xxxx-xx-xxx-xxx (e.g. 1608-23-733-209)"
-              placeholder="e.g. 1608-23-733-209"
-              value={collegeId}
-              onChange={(e) => setCollegeId(e.target.value)}
               disabled={loading}
             />
           </div>

@@ -7,7 +7,6 @@ import styles from "./leaderboard.module.css";
 interface ScoreEntry {
   id?: string;
   name: string;
-  collegeId?: string;
   score: number;
   rank?: number;
 }
@@ -66,7 +65,6 @@ export default function Leaderboard() {
                 <div className={styles.rankText}>#{idx + 1}</div>
                 <div className={styles.nameText}>
                   {entry.name}
-                  {entry.collegeId && <span className={styles.rollNumber}>{entry.collegeId}</span>}
                 </div>
                 <div className={styles.scoreText}>{entry.score}</div>
               </li>
@@ -82,7 +80,6 @@ export default function Leaderboard() {
             <div className={styles.rankText}>#{userSpecific.rank}</div>
             <div className={styles.nameText}>
               {userSpecific.name}
-              {userSpecific.collegeId && <span className={styles.rollNumber}>{userSpecific.collegeId}</span>}
             </div>
             <div className={styles.scoreText}>{userSpecific.score}</div>
           </div>
