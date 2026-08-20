@@ -8,6 +8,8 @@ interface ScoreEntry {
   id?: string;
   name: string;
   score: number;
+  total_correct?: number;
+  total_attempted?: number;
   rank?: number;
 }
 
@@ -55,15 +57,18 @@ export default function Leaderboard() {
   return (
     <main className={styles.container}>
       <h1 className={styles.title}>Global Leaderboard</h1>
-      <p className={styles.subtitle}>Check where each person stands in the competition</p>
+      <p className={styles.subtitle}>Participant Rankings & Total Correct Guesses</p>
 
       {/* User Specific Position Banner */}
       {userSpecific && (
         <div className={styles.userPosBanner}>
           <div>
-            <div className={styles.userPosTitle}>Your Current Standing</div>
+            <div className={styles.userPosTitle}>Your Standing</div>
             <div className={styles.userPosValue}>
               {userSpecific.name} — Position: {userSpecific.rank ? getOrdinalSuffix(userSpecific.rank) : "Unranked"}
+            </div>
+            <div style={{ fontSize: "0.85rem", color: "#a1a1aa", marginTop: "4px" }}>
+              Total Correct: {userSpecific.total_correct || 0} logo guesses
             </div>
           </div>
           <div className={styles.userPosScore}>{userSpecific.score} pts</div>
@@ -114,7 +119,12 @@ export default function Leaderboard() {
                   {medalEmoji ? <span className={styles.podiumBadge}>{medalEmoji}</span> : `#${actualRank}`}
                 </div>
                 <div className={styles.nameText}>
-                  {entry.name} {isMe && <span style={{ fontSize: "0.8rem", color: "var(--primary)" }}>(You)</span>}
+                  <div>
+                    {entry.name} {isMe && <span style={{ fontSize: "0.8rem", color: "var(--primary)" }}>(You)</span>}
+                  </div>
+                  <div style={{ fontSize: "0.82rem", color: "#a1a1aa", fontWeight: "400", marginTop: "2px" }}>
+                    🎯 {entry.total_correct ?? 0} Correct Guesses
+                  </div>
                 </div>
                 <div className={styles.scoreText}>{entry.score} pts</div>
               </li>

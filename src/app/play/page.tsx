@@ -146,6 +146,23 @@ export default function Play() {
     }
   }, [timeLeft, gameOver]);
 
+  // Record challenge result to SQLite DB when game ends
+  useEffect(() => {
+    if (gameOver && userId && userName) {
+      fetch("/api/complete-challenge", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          name: userName,
+          totalScore: score,
+          totalCorrect: correctCount,
+          totalAttempted: totalAttempted,
+        }),
+      }).catch((err) => console.error("Error posting to complete-challenge:", err));
+    }
+  }, [gameOver, userId, userName, score, correctCount, totalAttempted]);
+
   // Handle Option Click: Instant transition without showing correct answers during play
   const handleOptionClick = (option: string) => {
     if (!question || !userId || !isPlaying) return;
