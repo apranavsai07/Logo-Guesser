@@ -86,6 +86,9 @@ function getSqliteDatabase() {
           LIMIT 100
         `);
         return stmt.all() as ParticipantRecord[];
+      },
+      clear: () => {
+        db.exec('DELETE FROM challenge_results');
       }
     };
     return dbInstance;
@@ -140,6 +143,9 @@ function getSqliteDatabase() {
       getLeaderboard: (): ParticipantRecord[] => {
         const store = readStore();
         return store.sort((a, b) => b.total_score - a.total_score || b.total_correct - a.total_correct);
+      },
+      clear: () => {
+        writeStore([]);
       }
     };
     return dbInstance;
@@ -156,3 +162,9 @@ export function getSqliteLeaderboard(): ParticipantRecord[] {
   const db = getSqliteDatabase();
   return db.getLeaderboard();
 }
+
+export function clearSqliteLeaderboard() {
+  const db = getSqliteDatabase();
+  db.clear();
+}
+
